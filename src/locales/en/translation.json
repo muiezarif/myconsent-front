@@ -1,0 +1,203 @@
+{
+  "app": {
+    "title": "My Consent.me - Protect Yourself with Release Forms",
+    "description": "My Consent.me: Protect yourself with release forms. Build professional consent, release, and confidentiality forms on any device. Safe, secure, and ready when you need them.",
+    "startOver": "Start Over",
+    "supportUs": "Support Us"
+  },
+  "welcome": {
+    "mainTitle": "Protect Yourself with Release Forms",
+    "subtitle": "Build professional consent, release, and confidentiality forms on any device. Safe, secure, and ready when you need them.",
+    "formTypeQuestion": "What type of form do you need?",
+    "dropdownPlaceholder": "Or select from dropdown",
+    "getStarted": "Get Started",
+    "feature1": "No account required",
+    "feature2": "Mobile optimized",
+    "feature3": "Secure & private"
+  },
+  "formBuilder": {
+    "step": "Step {{current}} of {{total}}",
+    "back": "Back",
+    "next": "Next",
+    "reviewForm": "Review Form"
+  },
+  "review": {
+    "title": "Review Your {{formTitle}}",
+    "edit": "Edit",
+    "saveChanges": "Save Changes",
+    "cancel": "Cancel",
+    "nextStepNotice": "<strong>Next:</strong> You'll review the full agreement and provide your signature to make this form legally binding.",
+    "backToForm": "Back to Form",
+    "reviewAndSign": "Review & Sign"
+  },
+  "signature": {
+    "title": "Sign Your Form",
+    "digitalSignatureLabel": "Digital Signature",
+    "signaturePadHint": "Sign with your finger or mouse",
+    "dateLabel": "Signature Date",
+    "legalNotice": "<strong>Legal Notice:</strong> By signing this form, you acknowledge that you have read, understood, and agree to all terms and conditions outlined in this document.",
+    "completeForm": "Complete Form",
+    "backToReview": "Back to Review",
+    "toast": {
+      "sigRequiredTitle": "Signature Required",
+      "sigRequiredDesc": "Please provide your signature before continuing.",
+      "dateRequiredTitle": "Date Required",
+      "dateRequiredDesc": "Please select the signature date."
+    }
+  },
+  "agreement": {
+    "viewFull": "View Full Agreement",
+    "signaturesTitle": "SIGNATURES",
+    "signaturesDesc": "By signing below, all parties acknowledge that they have read and understood this Agreement, and agree to be bound by its terms.",
+    "signatureFor": "Signature for {{name}} ({{role}})",
+    "cancel": "Cancel",
+    "saveSignature": "Save Signature",
+    "dateLabel": "Date",
+    "agreeAndComplete": "Agree & Complete",
+    "backToReview": "Back to Review",
+    "editSignature": "Edit Signature",
+    "signHere": "Sign Here",
+    "toast": {
+      "sigRequiredTitle": "Signatures Required",
+      "sigRequiredDesc": "All parties must sign the agreement."
+    }
+  },
+  "export": {
+    "title": "Form Ready!",
+    "subtitle": "Your {{formTitle}} is ready to download.",
+    "downloadSectionTitle": "Download Your Document",
+    "preview": "Preview",
+    "downloadPdf": "Download as PDF",
+    "downloadNotice": "Keep a copy for your records and share with all relevant parties.",
+    "finishedTitle": "Finished?",
+    "finishedDesc": "You can now create another form or close this window.",
+    "createAnother": "Create Another Form",
+    "previewTitle": "Form Preview: {{formTitle}}",
+    "close": "Close",
+    "toast": {
+        "generating": "🚀 Generating PDF...",
+        "generatingDesc": "Your document is being created. Please wait a moment.",
+        "success": "✅ PDF Generated!",
+        "successDesc": "Your download should start automatically.",
+        "error": "❌ Error Generating PDF",
+        "errorDesc": "Something went wrong. Please try again. Check the console for more details."
+    }
+  },
+  "form": {
+    "common": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "date": "Date",
+      "idPhoto": "Photo of ID",
+      "idPhotoOptional": "Photo of ID (Optional)",
+      "shareEmail": "Email to Share Form With",
+      "shareEmailOptional": "Email to Share Form With (Optional)",
+      "additionalTerms": "Additional Terms",
+      "addParticipant": "Add Participant",
+      "participant": "Participant {{index}}",
+      "role": "Role"
+    },
+    "content-release": {
+      "title": "Content Release Form",
+      "step1Title": "Party Information",
+      "step2Title": "Project Details & ID",
+      "step3Title": "Usage Rights",
+      "step4Title": "Additional Details",
+      "participants_label": "Participants",
+      "participants_desc": "Add all individuals involved in this agreement.",
+      "role_releasor_label": "Releasor",
+      "role_releasor_desc": "The person granting permission/consent for their content.",
+      "role_releasee_label": "Releasee",
+      "role_releasee_desc": "The person or company receiving permission to use the content.",
+      "role_additional_label": "Additional Participant",
+      "role_additional_desc": "A neutral third party, like a witness or facilitator.",
+      "eventName_label": "Event/Project Name",
+      "socialMedia_label": "Allow use on social media",
+      "commercial_label": "Allow commercial use",
+      "marketing_label": "Allow use in marketing materials",
+      "noExpiration_label": "No expiration date",
+      "compensation_label": "Compensation (if any)"
+    },
+    "general-consent": {
+      "title": "General Consent Form",
+      "step1Title": "Participant Details",
+      "step2Title": "Context & ID",
+      "step3Title": "Acknowledgments",
+      "participants_label": "Participants",
+      "participants_desc": "Add all individuals involved in this agreement.",
+      "role_partyA_label": "Party A",
+      "role_partyA_desc": "The first individual entering the agreement.",
+      "role_partyB_label": "Party B",
+      "role_partyB_desc": "The second individual entering the agreement.",
+      "role_witness_label": "Witness",
+      "role_witness_desc": "An individual observing the agreement.",
+      "activityName_label": "Context/Event Name",
+      "healthDisclosure_label": "I confirm relevant health conditions have been disclosed.",
+      "voluntaryParticipation_label": "Participation is fully voluntary and understood."
+    },
+    "nda": {
+      "title": "Non-Disclosure Agreement",
+      "step1Title": "Party Information",
+      "step2Title": "Confidentiality & ID",
+      "step3Title": "Terms",
+      "step4Title": "Additional Provisions",
+      "participants_label": "Parties",
+      "participants_desc": "Add all individuals or entities bound by this NDA.",
+      "role_disclosing_label": "Disclosing Party",
+      "role_disclosing_desc": "The party sharing confidential information.",
+      "role_receiving_label": "Receiving Party",
+      "role_receiving_desc": "The party receiving confidential information.",
+      "role_witness_label": "Witness",
+      "role_witness_desc": "An individual observing the agreement.",
+      "effectiveDate_label": "Effective Date",
+      "purpose_label": "Purpose of Disclosure",
+      "duration_label": "Duration (years)",
+      "returnMaterials_label": "Agree to return materials",
+      "jurisdiction_label": "Governing Jurisdiction",
+      "additionalClauses_label": "Additional Clauses"
+    }
+  },
+  "agreements": {
+    "content-release": {
+      "title": "CONTENT RELEASE AGREEMENT",
+      "p1": "This Content Release Agreement (“Agreement”) is entered into on the date of signature below.",
+      "p2": "<strong>1. Grant of Rights:</strong> The undersigned (“Releasor”) hereby grants to the other undersigned party (“Releasee”) the irrevocable right and permission to use, reproduce, publish, distribute, broadcast, display, and otherwise exploit any and all photographs, video recordings, audio recordings, written statements, likenesses, images, or other media content (collectively, the “Content”) in which the Releasor appears or is identifiable. This includes use in any media now known or later developed, including but not limited to print, television, radio, film, digital, social media, advertising, promotional materials, and merchandise.",
+      "p3": "<strong>2. Scope of Use:</strong> The rights granted herein are worldwide, perpetual, royalty-free, and may be assigned, transferred, or sublicensed by the Releasee at their discretion. The Releasee may edit, alter, crop, combine, or otherwise modify the Content without restriction and without obligation to notify or seek additional approval from the Releasor.",
+      "p4": "<strong>3. Compensation:</strong> The Releasor acknowledges that they are providing this release voluntarily and that any compensation, if provided, is the full and final consideration for the rights granted herein. No further payments or royalties will be due in connection with any use of the Content.",
+      "p5": "<strong>4. Waiver of Claims:</strong> The Releasor waives any right to inspect or approve the final product, its use, or any accompanying text or material. The Releasor releases and discharges the Releasee from any and all claims, demands, or causes of action that the Releasor may have now or in the future, including but not limited to claims for defamation, invasion of privacy, infringement of moral rights, or violation of any publicity or personality rights arising out of or in connection with the use of the Content.",
+      "p6": "<strong>5. Legal Capacity:</strong> The Releasor affirms that they are at least 18 years of age and have the full legal capacity to execute this Agreement. If under 18, the signature of a parent or legal guardian is required.",
+      "p7": "<strong>6. Entire Agreement:</strong> This document constitutes the entire agreement between the parties regarding the Content and supersedes any prior understandings or agreements, whether written or oral, concerning the subject matter herein. No amendment or modification shall be valid unless made in writing and signed by both parties.",
+      "p8": "<strong>7. Governing Law:</strong> This Agreement shall be governed by and construed in accordance with the laws of the jurisdiction in which it is executed, without regard to its conflict of laws principles."
+    },
+    "general-consent": {
+      "title": "SEXUAL CONSENT AGREEMENT",
+      "p1": "This Sexual Consent Agreement (“Agreement”) is entered into on the date of signature below. The undersigned individuals (collectively, “the Parties”) voluntarily and knowingly agree to the following terms:",
+      "p2": "<strong>1. Voluntary Participation:</strong> Both Parties confirm that their participation in any sexual contact or activity is completely voluntary, free from any form of force, pressure, manipulation, intimidation, blackmail, or undue influence. Neither Party has been threatened, bribed, or promised any form of reward or benefit in exchange for participation.",
+      "p3": "<strong>2. Capacity and State of Mind:</strong> Both Parties affirm that, at the time of signing and during all agreed activities: They are of legal age to consent under the laws of the jurisdiction where this Agreement is executed. They are of sound mind and mental capacity to fully understand and agree to these terms. They are not under the influence of alcohol, drugs, medication, or any impairing substance to an extent that affects judgment, comprehension, or decision-making ability. They have had adequate time to consider the implications of engaging in sexual activity and to ask any questions before signing.",
+      "p4": "<strong>3. Understanding of Consent:</strong> The Parties acknowledge that: Consent must be informed, freely given, mutual, and ongoing. Consent can be withdrawn by either Party at any time, for any reason, without explanation. Withdrawal of consent requires the other Party to immediately cease all activity, without delay or argument. Past participation in sexual activity with each other or with others does not imply or guarantee consent for future activities.",
+      "p5": "<strong>4. Boundaries and Respect:</strong> The Parties agree to communicate clearly regarding comfort levels, physical boundaries, emotional boundaries, and any other personal limits before and during activities. Both Parties commit to: Respecting verbal and non-verbal cues that indicate discomfort, reluctance, or withdrawal of consent. Avoiding actions that are known, reasonably suspected, or observed to cause undue distress, injury, or emotional harm. Honoring the personal dignity, privacy, and physical safety of the other Party at all times.",
+      "p6": "<strong>5. Health and Safety:</strong> The Parties confirm that: They have disclosed any relevant health conditions, including sexually transmitted infections (STIs) or diseases, that may reasonably impact the other Party’s decision to participate. They have discussed and mutually agreed upon any precautionary measures to be used during activities, including protection and hygiene standards. They will immediately inform the other Party if, at any time, they experience discomfort, pain, distress, or any medical concern during the encounter.",
+      "p7": "<strong>6. No Exploitation or Public Exposure:</strong> The Parties agree that: No recording (audio, video, or photographic) of any sexual activity will occur without clear, mutual agreement at the time of recording. If any recording is made, the use, storage, and sharing of that recording must be agreed upon in writing. No content, information, or personal details about the other Party will be shared publicly, online, or with third parties without express consent.",
+      "p8": "<strong>7. Duration of Consent:</strong> This Agreement covers only the specific sexual activities engaged in during the timeframe immediately following its execution. It does not grant open-ended or perpetual consent for future encounters. Any subsequent activities will require renewed verbal or written consent.",
+      "p9": "<strong>8. Mutual Release:</strong> Provided that all activities remain within the agreed boundaries and all withdrawal of consent is respected immediately, each Party releases the other from liability for claims, complaints, or disputes arising from the consensual nature of the encounter.",
+      "p10": "<strong>9. Legal Limitations:</strong> Both Parties understand that: This Agreement does not waive or override any applicable laws regarding sexual assault, statutory rape, or incapacity to consent. If one Party is later determined to have been unable to legally or mentally consent at the time of the encounter, this Agreement is void. Any violation of the terms of this Agreement, including failure to respect withdrawal of consent, nullifies its protections for the violating Party.",
+      "p11": "<strong>10. Entire Understanding:</strong> This Agreement reflects the entire understanding between the Parties regarding the encounter it covers. It cannot be altered except in writing signed by both Parties before activities take place."
+    },
+    "nda": {
+      "title": "NON-DISCLOSURE AGREEMENT",
+      "p1": "This Non-Disclosure Agreement (“Agreement”) is entered into on the date of signature below.",
+      "p2": "The undersigned individuals or entities (collectively, “the Parties”) voluntarily and knowingly agree to the following terms:",
+      "p3": "<strong>1. Purpose:</strong> The Parties intend to engage in discussions, share information, or work together in a manner that may involve the disclosure of confidential, proprietary, or otherwise sensitive information (“Confidential Information”). This Agreement sets out the obligations of each Party to maintain the confidentiality of such information.",
+      "p4": "<strong>2. Definition of Confidential Information:</strong> For the purposes of this Agreement, “Confidential Information” includes, without limitation: Any written, verbal, electronic, or visual information not generally known to the public. Business strategies, marketing plans, pricing structures, contracts, agreements, and financial records. Product designs, concepts, prototypes, formulas, code, source files, and technical data. Customer lists, supplier relationships, sales records, lead data, and trade secrets. Any discussions, proposals, or negotiations between the Parties. Any other information identified as confidential at the time of disclosure or that should reasonably be understood as confidential given the nature of the information.",
+      "p5": "<strong>3. Exclusions from Confidential Information:</strong> Confidential Information does not include information that: Is or becomes publicly available through no fault of the receiving Party. Was lawfully known to the receiving Party before disclosure by the other Party. Is lawfully obtained from a third party without breach of any obligation of confidentiality. Is independently developed by the receiving Party without reference to the Confidential Information.",
+      "p6": "<strong>4. Obligations of Confidentiality:</strong> Each Party agrees to: Keep all Confidential Information strictly confidential and not disclose it to any third party without prior written consent from the disclosing Party. Use the Confidential Information solely for the purposes expressly agreed upon by the Parties. Take all reasonable measures to protect the secrecy and prevent unauthorized use or disclosure of Confidential Information. Restrict disclosure of Confidential Information to only those employees, contractors, or representatives who have a legitimate need to know and are bound by confidentiality obligations no less strict than those contained in this Agreement.",
+      "p7": "<strong>5. Non-Use and Non-Competition:</strong> Unless otherwise agreed in writing: The receiving Party shall not use the Confidential Information for their own benefit or the benefit of any third party outside the agreed scope. The receiving Party shall not use the Confidential Information to compete directly or indirectly with the disclosing Party’s business, products, or services for a reasonable period of time following the date of this Agreement.",
+      "p8": "<strong>6. Return or Destruction of Materials:</strong> Upon request by the disclosing Party or termination of the Parties’ relationship, the receiving Party shall promptly return or destroy all copies, notes, summaries, or other materials containing Confidential Information, in any format, and confirm in writing that such return or destruction has been completed.",
+      "p9": "<strong>7. Duration of Confidentiality:</strong> The obligations of this Agreement shall remain in effect indefinitely from the date of signature, unless otherwise required by law, and will survive the termination of any business relationship between the Parties.",
+      "p10": "<strong>8. Remedies for Breach:</strong> The Parties agree that any unauthorized disclosure or use of Confidential Information may cause irreparable harm, for which monetary damages may be insufficient. In such cases, the disclosing Party is entitled to seek injunctive relief, specific performance, and any other remedies available at law or in equity, without the necessity of posting bond or proving actual damages.",
+      "p11": "<strong>9. LegalCompliance:</strong> Nothing in this Agreement shall prohibit disclosure of Confidential Information if required by law, regulation, court order, or government authority, provided that the receiving Party gives prompt notice to the disclosing Party to allow them to seek protective measures.",
+      "p12": "<strong>10. Entire Agreement:</strong> This Agreement constitutes the entire understanding between the Parties regarding confidentiality and supersedes all prior discussions, understandings, or agreements, whether written or oral, relating to the subject matter herein. Any modification must be made in writing and signed by both Parties."
+    }
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "app": {
+    "title": "My Consent.me - Proteja-se com Formulários de Cessão",
+    "description": "My Consent.me: Proteja-se com formulários de cessão. Crie formulários profissionais de consentimento, cessão e confidencialidade em qualquer dispositivo. Seguro, protegido e pronto quando você precisar.",
+    "startOver": "Começar de Novo",
+    "supportUs": "Apoie-nos"
+  },
+  "welcome": {
+    "mainTitle": "Proteja-se com Formulários de Cessão",
+    "subtitle": "Crie formulários profissionais de consentimento, cessão e confidencialidade em qualquer dispositivo. Seguro, protegido e pronto quando você precisar.",
+    "formTypeQuestion": "Que tipo de formulário você precisa?",
+    "dropdownPlaceholder": "Ou selecione no menu suspenso",
+    "getStarted": "Começar",
+    "feature1": "Nenhuma conta necessária",
+    "feature2": "Otimizado para celular",
+    "feature3": "Seguro e privado"
+  },
+  "formBuilder": {
+    "step": "Passo {{current}} de {{total}}",
+    "back": "Voltar",
+    "next": "Próximo",
+    "reviewForm": "Revisar Formulário"
+  },
+  "review": {
+    "title": "Revise seu {{formTitle}}",
+    "edit": "Editar",
+    "saveChanges": "Salvar Alterações",
+    "cancel": "Cancelar",
+    "nextStepNotice": "<strong>Próximo:</strong> Você revisará o acordo completo e fornecerá sua assinatura para tornar este formulário legalmente vinculativo.",
+    "backToForm": "Voltar para o Formulário",
+    "reviewAndSign": "Revisar e Assinar"
+  },
+  "signature": {
+    "title": "Assine seu Formulário",
+    "digitalSignatureLabel": "Assinatura Digital",
+    "signaturePadHint": "Assine com o dedo ou mouse",
+    "dateLabel": "Data da Assinatura",
+    "legalNotice": "<strong>Aviso Legal:</strong> Ao assinar este formulário, você reconhece que leu, entendeu e concorda com todos os termos e condições descritos neste documento.",
+    "completeForm": "Concluir Formulário",
+    "backToReview": "Voltar para Revisão",
+    "toast": {
+      "sigRequiredTitle": "Assinatura Necessária",
+      "sigRequiredDesc": "Por favor, forneça sua assinatura antes de continuar.",
+      "dateRequiredTitle": "Data Necessária",
+      "dateRequiredDesc": "Por favor, selecione a data da assinatura."
+    }
+  },
+  "agreement": {
+    "viewFull": "Ver Acordo Completo",
+    "signaturesTitle": "ASSINATURAS",
+    "signaturesDesc": "Ao assinar abaixo, todas as partes reconhecem que leram e entenderam este Acordo, e concordam em ficar vinculadas por seus termos.",
+    "signatureFor": "Assinatura para {{name}} ({{role}})",
+    "cancel": "Cancelar",
+    "saveSignature": "Salvar Assinatura",
+    "dateLabel": "Data",
+    "agreeAndComplete": "Concordar e Concluir",
+    "backToReview": "Voltar para Revisão",
+    "editSignature": "Editar Assinatura",
+    "signHere": "Assine Aqui",
+    "toast": {
+      "sigRequiredTitle": "Assinaturas Necessárias",
+      "sigRequiredDesc": "Todas as partes devem assinar o acordo."
+    }
+  },
+  "export": {
+    "title": "Formulário Pronto!",
+    "subtitle": "Seu {{formTitle}} está pronto para download.",
+    "downloadSectionTitle": "Baixe seu Documento",
+    "preview": "Visualizar",
+    "downloadPdf": "Baixar como PDF",
+    "downloadNotice": "Guarde uma cópia para seus registros e compartilhe com todas as partes relevantes.",
+    "finishedTitle": "Terminou?",
+    "finishedDesc": "Você pode agora criar outro formulário ou fechar esta janela.",
+    "createAnother": "Criar Outro Formulário",
+    "previewTitle": "Visualização do Formulário: {{formTitle}}",
+    "close": "Fechar",
+     "toast": {
+        "generating": "🚀 Gerando PDF...",
+        "generatingDesc": "Seu documento está sendo criado. Por favor, aguarde um momento.",
+        "success": "✅ PDF Gerado!",
+        "successDesc": "O download deve começar automaticamente.",
+        "error": "❌ Erro ao Gerar PDF",
+        "errorDesc": "Algo deu errado. Por favor, tente novamente. Verifique o console para mais detalhes."
+    }
+  },
+  "form": {
+    "common": {
+      "firstName": "Primeiro Nome",
+      "lastName": "Sobrenome",
+      "email": "E-mail",
+      "date": "Data",
+      "idPhoto": "Foto do Documento de Identidade",
+      "idPhotoOptional": "Foto do Documento de Identidade (Opcional)",
+      "shareEmail": "E-mail para Compartilhar Formulário",
+      "shareEmailOptional": "E-mail para Compartilhar (Opcional)",
+      "additionalTerms": "Termos Adicionais",
+      "addParticipant": "Adicionar Participante",
+      "participant": "Participante {{index}}",
+      "role": "Função"
+    },
+    "content-release": {
+      "title": "Formulário de Cessão de Conteúdo",
+      "step1Title": "Informações das Partes",
+      "step2Title": "Detalhes do Projeto e ID",
+      "step3Title": "Direitos de Uso",
+      "step4Title": "Detalhes Adicionais",
+      "participants_label": "Participantes",
+      "participants_desc": "Adicione todos os indivíduos envolvidos neste acordo.",
+      "role_releasor_label": "Cedente",
+      "role_releasor_desc": "A pessoa que concede permissão/consentimento para seu conteúdo.",
+      "role_releasee_label": "Cessionário",
+      "role_releasee_desc": "A pessoa ou empresa que recebe permissão para usar o conteúdo.",
+      "role_additional_label": "Participante Adicional",
+      "role_additional_desc": "Um terceiro neutro, como uma testemunha ou facilitador.",
+      "eventName_label": "Nome do Evento/Projeto",
+      "socialMedia_label": "Permitir uso em mídias sociais",
+      "commercial_label": "Permitir uso comercial",
+      "marketing_label": "Permitir uso em materiais de marketing",
+      "noExpiration_label": "Sem data de expiração",
+      "compensation_label": "Compensação (se houver)"
+    },
+    "general-consent": {
+      "title": "Formulário de Consentimento Geral",
+      "step1Title": "Detalhes do Participante",
+      "step2Title": "Contexto e ID",
+      "step3Title": "Reconhecimentos",
+      "participants_label": "Participantes",
+      "participants_desc": "Adicione todos os indivíduos envolvidos neste acordo.",
+      "role_partyA_label": "Parte A",
+      "role_partyA_desc": "O primeiro indivíduo a entrar no acordo.",
+      "role_partyB_label": "Parte B",
+      "role_partyB_desc": "O segundo indivíduo a entrar no acordo.",
+      "role_witness_label": "Testemunha",
+      "role_witness_desc": "Um indivíduo observando o acordo.",
+      "activityName_label": "Nome do Contexto/Evento",
+      "healthDisclosure_label": "Confirmo que condições de saúde relevantes foram divulgadas.",
+      "voluntaryParticipation_label": "A participação é totalmente voluntária e compreendida."
+    },
+    "nda": {
+      "title": "Acordo de Não Divulgação",
+      "step1Title": "Informações das Partes",
+      "step2Title": "Confidencialidade e ID",
+      "step3Title": "Termos",
+      "step4Title": "Disposições Adicionais",
+      "participants_label": "Partes",
+      "participants_desc": "Adicione todos os indivíduos ou entidades vinculados por este NDA.",
+      "role_disclosing_label": "Parte Divulgadora",
+      "role_disclosing_desc": "A parte que compartilha informações confidenciais.",
+      "role_receiving_label": "Parte Receptora",
+      "role_receiving_desc": "A parte que recebe informações confidenciais.",
+      "role_witness_label": "Testemunha",
+      "role_witness_desc": "Um indivíduo observando o acordo.",
+      "effectiveDate_label": "Data de Vigência",
+      "purpose_label": "Propósito da Divulgação",
+      "duration_label": "Duração (anos)",
+      "returnMaterials_label": "Concordar em devolver materiais",
+      "jurisdiction_label": "Jurisdição Governante",
+      "additionalClauses_label": "Cláusulas Adicionais"
+    }
+  },
+  "agreements": {
+    "content-release": {
+      "title": "ACORDO DE CESSÃO DE CONTEÚDO",
+      "p1": "Este Acordo de Cessão de Conteúdo (“Acordo”) é celebrado na data da assinatura abaixo.",
+      "p2": "<strong>1. Concessão de Direitos:</strong> O abaixo assinado (“Cedente”) concede irrevogavelmente à outra parte abaixo assinada (“Cessionário”) o direito e a permissão para usar, reproduzir, publicar, distribuir, transmitir, exibir e, de outra forma, explorar todas e quaisquer fotografias, gravações de vídeo, gravações de áudio, declarações escritas, semelhanças, imagens ou outro conteúdo de mídia (coletivamente, o “Conteúdo”) em que o Cedente apareça ou seja identificável. Isso inclui o uso em qualquer mídia agora conhecida ou desenvolvida posteriormente, incluindo, mas não se limitando a, impressão, televisão, rádio, cinema, digital, mídia social, publicidade, materiais promocionais e mercadorias.",
+      "p3": "<strong>2. Escopo de Uso:</strong> Os direitos concedidos aqui são mundiais, perpétuos, isentos de royalties e podem ser cedidos, transferidos ou sublicenciados pelo Cessionário a seu critério. O Cessionário pode editar, alterar, recortar, combinar ou modificar o Conteúdo sem restrições e sem a obrigação de notificar ou buscar aprovação adicional do Cedente.",
+      "p4": "<strong>3. Compensação:</strong> O Cedente reconhece que está fornecendo esta cessão voluntariamente e que qualquer compensação, se fornecida, é a consideração total e final pelos direitos concedidos aqui. Nenhum pagamento adicional ou royalties serão devidos em conexão com qualquer uso do Conteúdo.",
+      "p5": "<strong>4. Renúncia a Reivindicações:</strong> O Cedente renuncia a qualquer direito de inspecionar ou aprovar o produto final, seu uso ou qualquer texto ou material que o acompanhe. O Cedente libera e isenta o Cessionário de todas e quaisquer reivindicações, demandas ou causas de pedir que o Cedente possa ter agora ou no futuro, incluindo, mas não se limitando a, reivindicações por difamação, invasão de privacidade, violação de direitos morais ou violação de quaisquer direitos de publicidade ou personalidade decorrentes de ou em conexão com o uso do Conteúdo.",
+      "p6": "<strong>5. Capacidade Legal:</strong> O Cedente afirma que tem pelo menos 18 anos de idade e possui plena capacidade legal para celebrar este Acordo. Se for menor de 18 anos, é necessária a assinatura de um pai ou responsável legal.",
+      "p7": "<strong>6. Acordo Integral:</strong> Este documento constitui o acordo integral entre as partes em relação ao Conteúdo e substitui quaisquer entendimentos ou acordos anteriores, sejam escritos ou orais, relativos ao assunto aqui tratado. Nenhuma emenda ou modificação será válida a menos que feita por escrito e assinada por ambas as partes.",
+      "p8": "<strong>7. Lei Aplicável:</strong> Este Acordo será regido e interpretado de acordo com as leis da jurisdição em que for executado, sem levar em conta seus princípios de conflito de leis."
+    },
+    "general-consent": {
+      "title": "ACORDO DE CONSENTIMENTO SEXUAL",
+      "p1": "Este Acordo de Consentimento Sexual (“Acordo”) é celebrado na data da assinatura abaixo. Os indivíduos abaixo assinados (coletivamente, “as Partes”) concordam voluntária e conscientemente com os seguintes termos:",
+      "p2": "<strong>1. Participação Voluntária:</strong> Ambas as Partes confirmam que sua participação em qualquer contato ou atividade sexual é completamente voluntária, livre de qualquer forma de força, pressão, manipulação, intimidação, chantagem ou influência indevida. Nenhuma das Partes foi ameaçada, subornada ou prometida qualquer forma de recompensa ou benefício em troca de participação.",
+      "p3": "<strong>2. Capacidade e Estado de Espírito:</strong> Ambas as Partes afirmam que, no momento da assinatura e durante todas as atividades acordadas: Têm idade legal para consentir sob as leis da jurisdição onde este Acordo é executado. Estão em sã consciência e com capacidade mental para entender e concordar plenamente com estes termos. Não estão sob a influência de álcool, drogas, medicação ou qualquer substância incapacitante a ponto de afetar o julgamento, a compreensão ou a capacidade de tomar decisões. Tiveram tempo adequado para considerar as implicações de se envolver em atividade sexual e para fazer quaisquer perguntas antes de assinar.",
+      "p4": "<strong>3. Compreensão do Consentimento:</strong> As Partes reconhecem que: O consentimento deve ser informado, livremente dado, mútuo e contínuo. O consentimento pode ser retirado por qualquer uma das Partes a qualquer momento, por qualquer motivo, sem explicação. A retirada do consentimento exige que a outra Parte cesse imediatamente toda a atividade, sem demora ou discussão. A participação passada em atividade sexual um com o outro ou com outros não implica nem garante o consentimento para atividades futuras.",
+      "p5": "<strong>4. Limites e Respeito:</strong> As Partes concordam em comunicar-se claramente sobre os níveis de conforto, limites físicos, limites emocionais e quaisquer outros limites pessoais antes e durante as atividades. Ambas as Partes se comprometem a: Respeitar sinais verbais e não verbais que indiquem desconforto, relutância ou retirada do consentimento. Evitar ações que sejam conhecidas, razoavelmente suspeitas ou observadas como causadoras de angústia indevida, lesão ou dano emocional. Honrar a dignidade pessoal, a privacidade e a segurança física da outra Parte em todos os momentos.",
+      "p6": "<strong>5. Saúde e Segurança:</strong> As Partes confirmam que: Divulgaram quaisquer condições de saúde relevantes, incluindo infecções sexualmente transmissíveis (ISTs) ou doenças, que possam razoavelmente impactar a decisão da outra Parte de participar. Discutiram e concordaram mutuamente sobre quaisquer medidas de precaução a serem usadas durante as atividades, incluindo proteção и padrões de higiene. Informarão imediatamente a outra Parte se, a qualquer momento, sentirem desconforto, dor, angústia ou qualquer preocupação médica durante o encontro.",
+      "p7": "<strong>6. Não Exploração ou Exposição Pública:</strong> As Partes concordam que: Nenhuma gravação (áudio, vídeo ou fotográfica) de qualquer atividade sexual ocorrerá sem acordo claro e mútuo no momento da gravação. Se alguma gravação for feita, o uso, armazenamento e compartilhamento dessa gravação devem ser acordados por escrito. Nenhum conteúdo, informação ou detalhe pessoal sobre a outra Parte será compartilhado publicamente, online ou com terceiros sem consentimento expresso.",
+      "p8": "<strong>7. Duração do Consentimento:</strong> Este Acordo abrange apenas as atividades sexuais específicas realizadas no período imediatamente após sua execução. Não concede consentimento aberto ou perpétuo para encontros futuros. Quaisquer atividades subsequentes exigirão consentimento verbal ou escrito renovado.",
+      "p9": "<strong>8. Liberação Mútua:</strong> Desde que todas as atividades permaneçam dentro dos limites acordados e toda retirada de consentimento seja respeitada imediatamente, cada Parte libera a outra de responsabilidade por reivindicações, queixas ou disputas decorrentes da natureza consensual do encontro.",
+      "p10": "<strong>9. Limitações Legais:</strong> Ambas as Partes entendem que: Este Acordo não renuncia nem anula quaisquer leis aplicáveis sobre agressão sexual, estupro ou incapacidade de consentir. Se for determinado posteriormente que uma das Partes era legal ou mentalmente incapaz de consentir no momento do encontro, este Acordo é nulo. Qualquer violação dos termos deste Acordo, incluindo a falha em respeitar a retirada do consentimento, anula suas proteções para a Parte infratora.",
+      "p11": "<strong>10. Entendimento Integral:</strong> Este Acordo reflete o entendimento integral entre as Partes em relação ao encontro que abrange. Não pode ser alterado, exceto por escrito e assinado por ambas as Partes antes que as atividades ocorram."
+    },
+    "nda": {
+      "title": "ACORDO DE NÃO DIVULGAÇÃO",
+      "p1": "Este Acordo de Não Divulgação (“Acordo”) é celebrado na data da assinatura abaixo.",
+      "p2": "Os indivíduos ou entidades abaixo assinados (coletivamente, “as Partes”) concordam voluntária e conscientemente com os seguintes termos:",
+      "p3": "<strong>1. Propósito:</strong> As Partes pretendem participar de discussões, compartilhar informações ou trabalhar juntas de uma maneira que possa envolver a divulgação de informações confidenciais, proprietárias ou de outra forma sensíveis (“Informações Confidenciais”). Este Acordo estabelece as obrigações de cada Parte de manter a confidencialidade de tais informações.",
+      "p4": "<strong>2. Definição de Informações Confidenciais:</strong> Para os fins deste Acordo, “Informações Confidenciais” incluem, sem limitação: Qualquer informação escrita, verbal, eletrônica ou visual não geralmente conhecida pelo público. Estratégias de negócios, planos de marketing, estruturas de preços, contratos, acordos e registros financeiros. Projetos de produtos, conceitos, protótipos, fórmulas, código, arquivos-fonte e dados técnicos. Listas de clientes, relacionamentos com fornecedores, registros de vendas, dados de leads e segredos comerciais. Quaisquer discussões, propostas ou negociações entre as Partes. Qualquer outra informação identificada como confidencial no momento da divulgação ou que deva ser razoavelmente entendida como confidencial, dada a natureza da informação.",
+      "p5": "<strong>3. Exclusões de Informações Confidenciais:</strong> As Informações Confidenciais não incluem informações que: São ou se tornam publicamente disponíveis sem culpa da Parte receptora. Eram legalmente conhecidas pela Parte receptora antes da divulgação pela outra Parte. São obtidas legalmente de um terceiro sem violação de qualquer obrigação de confidencialidade. São desenvolvidas independentemente pela Parte receptora sem referência às Informações Confidenciais.",
+      "p6": "<strong>4. Obrigações de Confidencialidade:</strong> Cada Parte concorda em: Manter todas as Informações Confidenciais estritamente confidenciais e não divulgá-las a terceiros sem o consentimento prévio por escrito da Parte divulgadora. Usar as Informações Confidenciais exclusivamente para os fins expressamente acordados pelas Partes. Tomar todas as medidas razoáveis para proteger o sigilo e impedir o uso ou divulgação não autorizados das Informações Confidenciais. Restringir a divulgação de Informações Confidenciais apenas aos funcionários, contratados ou representantes que tenham uma necessidade legítima de saber e que estejam vinculados por obrigações de confidencialidade não menos rigorosas do que as contidas neste Acordo.",
+      "p7": "<strong>5. Não Uso e Não Concorrência:</strong> A menos que acordado de outra forma por escrito: A Parte receptora não usará as Informações Confidenciais para seu próprio benefício ou para o benefício de terceiros fora do escopo acordado. A Parte receptora não usará as Informações Confidenciais para competir direta ou indiretamente com os negócios, produtos ou serviços da Parte divulgadora por um período razoável de tempo após a data deste Acordo.",
+      "p8": "<strong>6. Devolução ou Destruição de Materiais:</strong> A pedido da Parte divulgadora ou no término do relacionamento das Partes, a Parte receptora deverá devolver ou destruir prontamente todas as cópias, notas, resumos ou outros materiais que contenham Informações Confidenciais, em qualquer formato, e confirmar por escrito que tal devolução ou destruição foi concluída.",
+      "p9": "<strong>7. Duração da Confidencialidade:</strong> As obrigações deste Acordo permanecerão em vigor indefinidamente a partir da data da assinatura, a menos que exigido por lei, e sobreviverão ao término de qualquer relacionamento comercial entre as Partes.",
+      "p10": "<strong>8. Remédios por Violação:</strong> As Partes concordam que qualquer divulgação ou uso não autorizado de Informações Confidenciais pode causar danos irreparáveis, para os quais os danos monetários podem ser insuficientes. Em tais casos, a Parte divulgadora tem o direito de buscar medidas cautelares, execução específica e quaisquer outros remédios disponíveis na lei ou em equidade, sem a necessidade de prestar caução ou provar danos reais.",
+      "p11": "<strong>9. Conformidade Legal:</strong> Nada neste Acordo proibirá a divulgação de Informações Confidenciais se exigido por lei, regulamento, ordem judicial ou autoridade governamental, desde que a Parte receptora notifique prontamente a Parte divulgadora para permitir que ela busque medidas de proteção.",
+      "p12": "<strong>10. Acordo Integral:</strong> Este Acordo constitui o entendimento integral entre as Partes em relação à confidencialidade e substitui todas as discussões, entendimentos ou acordos anteriores, sejam escritos ou orais, relacionados ao assunto aqui tratado. Qualquer modificação deve ser feita por escrito e assinada por ambas as Partes."
+    }
+  }
+}
