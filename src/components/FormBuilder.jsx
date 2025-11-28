@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
@@ -6,18 +6,41 @@ import { Button } from '@/components/ui/button';
 import { formSteps } from '@/config/form-steps.js';
 import { renderField } from '@/components/form-fields/renderField.jsx';
 
-function FormBuilder({ formType, onComplete, onBack, initialData }) {
+/**
+ * Props:
+ * - formType
+ * - onComplete(formData)
+ * - onBack()
+ * - initialData
+ * - onChange(formData)       -> called whenever user types
+ * - onStepCommit(index, data)-> called when user clicks Next / Review for a step
+ */
+function FormBuilder({ formType, onComplete, onBack, initialData, onChange, onStepCommit }) {
   const { t } = useTranslation();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [formData, setFormData] = useState(initialData);
-  
+
   const steps = formSteps[formType] || [];
   const currentStep = steps[currentStepIndex];
   const isLastStep = currentStepIndex === steps.length - 1;
 
+  // Notify parent on any change (for UI / preview / saving)
+  useEffect(() => {
+    if (onChange) {
+      onChange(formData);
+    }
+  }, [formData, onChange]);
+
   const handleNext = () => {
+    const dataForStep = formData;
+
+    // 🔔 Inform parent that this step is "committed"
+    if (onStepCommit) {
+      onStepCommit(currentStepIndex, dataForStep);
+    }
+
     if (isLastStep) {
-      onComplete(formData);
+      onComplete(dataForStep);
     } else {
       setCurrentStepIndex(prev => prev + 1);
     }
@@ -30,6 +53,18 @@ function FormBuilder({ formType, onComplete, onBack, initialData }) {
       onBack();
     }
   };
+
+  if (!currentStep) {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+          <p className="text-gray-600">
+            {t('formBuilder.noSteps', 'No steps configured for this form type.')}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -71,7 +106,7 @@ function FormBuilder({ formType, onComplete, onBack, initialData }) {
           ))}
         </div>
 
-        <div className="flex flex-col-reverse sm:flex-row justify-between mt-8 pt-6 border-t gap-4">
+        <div className="flex flex-col-reverse sm:flex-row justify-between mt-8 pt-6 border-top gap-4 border-t">
           <Button
             variant="outline"
             onClick={handlePrevious}

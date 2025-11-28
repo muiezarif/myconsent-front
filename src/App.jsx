@@ -9,6 +9,7 @@ import Dashboard from '@/pages/Dashboard';
 import NotFound from '@/pages/NotFound';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import CreateWithAI from '@/pages/CreateWithAI';
+import CreditsSuccess from './pages/CreditsSuccess';
 
 function App() {
   return (
@@ -16,6 +17,14 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route
+          path="/credits/success"
+          element={
+            <ProtectedRoute>
+              <CreditsSuccess />
+            </ProtectedRoute>
+          }
+        />
         <Route element={<MainLayout />}>
           <Route path="/" element={<FormCreator />} />
           <Route 

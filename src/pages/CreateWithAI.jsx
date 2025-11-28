@@ -10,15 +10,19 @@ import {
   PhoneOff,
   Download,
   Save,
-  FileText
+  FileText,
+  PenTool,
+  RotateCcw
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/components/ui/use-toast';
 import { Link } from 'react-router-dom';
 import api from '@/api/myconsent.js';
-import jsPDF from 'jspdf';
+import { generatePdf } from '@/lib/pdfGenerator';
+import SignatureCanvas from '@/components/SignatureCanvas';
 
 const ChatMessage = ({ message }) => {
   const { role, content } = message;
@@ -146,6 +150,12 @@ function CreateWithAI() {
   const responseTextRef = useRef('');
   const [streamingAssistantText, setStreamingAssistantText] = useState('');
   const [isGeneratingContract, setIsGeneratingContract] = useState(false);
+  
+  // Signature collection state
+  const [showSignatureMode, setShowSignatureMode] = useState(false);
+  const [signatureDate, setSignatureDate] = useState(new Date().toISOString().split('T')[0]);
+  const [hasSignature, setHasSignature] = useState(false);
+  const sigRef = useRef(null);
 
   // Scroll chat to bottom when messages change
   const scrollToBottom = () => {
@@ -594,139 +604,348 @@ function CreateWithAI() {
     );
   };
 
-  /** ---------- PDF generation + upload ---------- */
-
-  // Generate PDF: **only the main contract text**
-  const generateAiPdfBlob = (title, mainText) => {
-    const doc = new jsPDF({
-      orientation: 'p',
-      unit: 'mm',
-      format: 'a4'
-    });
-
-    const margin = 15;
-    const pageWidth = doc.internal.pageSize.width;
-    const usableWidth = pageWidth - margin * 2;
-    const pageHeight = doc.internal.pageSize.height;
-
-    // Title
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold');
-    doc.text(title, margin, 20);
-
-    // Main contract text only
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-
-    const mainLines = doc.splitTextToSize(mainText, usableWidth);
-    let y = 30;
-
-    mainLines.forEach((line) => {
-      if (y > pageHeight - 20) {
-        doc.addPage();
-        y = margin;
+  /** ---------- Helper: Parse conversation to extract form data ---------- */
+  
+  const parseConversationToFormData = (messages) => {
+    const formData = {};
+    const conversationText = messages.map(m => m.content).join('\n');
+    const lowerText = conversationText.toLowerCase();
+    
+    // Extract names - look for common patterns like "my name is X" or "I am X"
+    const names = [];
+    const namePatterns = [
+      /(?:my name is|i am|i'm)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)/g,
+      /(?:party|participant|person):\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)/gi
+    ];
+    namePatterns.forEach(pattern => {
+      let match;
+      while ((match = pattern.exec(conversationText)) !== null) {
+        if (match[1] && match[1].length > 1) {
+          names.push(match[1].trim());
+        }
       }
-      doc.text(line, margin, y);
-      y += 5;
     });
-
-    return doc.output('blob');
+    
+    // Create participants array from extracted names
+    const participants = [];
+    if (names.length > 0) {
+      names.forEach((fullName, index) => {
+        const nameParts = fullName.split(' ');
+        participants.push({
+          firstName: nameParts[0] || '',
+          lastName: nameParts.slice(1).join(' ') || '',
+          email: user?.email || '',
+          role: index === 0 ? 'Party A' : 'Party B'
+        });
+      });
+    } else {
+      // Default participants if none extracted
+      participants.push({
+        firstName: user?.email?.split('@')[0] || 'User',
+        lastName: '',
+        email: user?.email || '',
+        role: 'Party A'
+      });
+      participants.push({
+        firstName: '',
+        lastName: '',
+        email: '',
+        role: 'Party B'
+      });
+    }
+    formData.participants = participants;
+    
+    // Extract dates
+    const dateMatch = conversationText.match(/\b(\d{4}[-/]\d{1,2}[-/]\d{1,2}|\d{1,2}[-/]\d{1,2}[-/]\d{4})\b/);
+    if (dateMatch) {
+      formData.effectiveDate = dateMatch[0];
+      formData.date = dateMatch[0];
+    } else {
+      formData.effectiveDate = new Date().toISOString().split('T')[0];
+      formData.date = new Date().toISOString().split('T')[0];
+    }
+    
+    // Extract emails
+    const emailMatches = conversationText.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g);
+    if (emailMatches && emailMatches.length > 0) {
+      formData.shareEmail = emailMatches[0];
+      // Update participant emails
+      emailMatches.forEach((email, idx) => {
+        if (participants[idx]) {
+          participants[idx].email = email;
+        }
+      });
+    }
+    
+    // Extract event/activity/project name
+    const eventPatterns = [
+      /(?:event|project|activity|agreement)\s+(?:name|title|called)(?:\s+is)?:?\s*["']?([^"'\n.]+)["']?/i,
+      /for\s+(?:the\s+)?(?:event|project|activity)\s+["']?([^"'\n.]+)["']?/i
+    ];
+    for (const pattern of eventPatterns) {
+      const match = conversationText.match(pattern);
+      if (match && match[1]) {
+        formData.eventName = match[1].trim();
+        formData.activityName = match[1].trim();
+        break;
+      }
+    }
+    
+    // Extract purpose/description
+    const purposePatterns = [
+      /(?:purpose|reason|objective)(?:\s+is)?:?\s*([^.\n]+)/i,
+      /(?:for|regarding)\s+([^.\n]{10,100})/i
+    ];
+    for (const pattern of purposePatterns) {
+      const match = conversationText.match(pattern);
+      if (match && match[1] && match[1].length > 10) {
+        formData.purpose = match[1].trim();
+        break;
+      }
+    }
+    
+    // Extract compensation if mentioned
+    const compensationMatch = conversationText.match(/(?:compensation|payment|fee)(?:\s+is)?:?\s*\$?([\d,]+(?:\.\d{2})?)/i);
+    if (compensationMatch) {
+      formData.compensation = compensationMatch[1];
+    }
+    
+    // Extract checkboxes/boolean fields based on keywords
+    formData.voluntaryParticipation = lowerText.includes('voluntary') || lowerText.includes('voluntarily');
+    formData.healthDisclosure = lowerText.includes('health') || lowerText.includes('medical');
+    formData.socialMedia = lowerText.includes('social media') || lowerText.includes('instagram') || lowerText.includes('facebook');
+    formData.commercial = lowerText.includes('commercial') || lowerText.includes('advertisement');
+    formData.marketing = lowerText.includes('marketing') || lowerText.includes('promotional');
+    formData.noExpiration = !lowerText.includes('expire') && !lowerText.includes('expiration');
+    
+    // Add comprehensive summary as additional terms
+    const userMessages = messages.filter(m => m.role === 'user').map(m => m.content).join(' ');
+    formData.additionalTerms = `AI-Generated Contract\n\nBased on conversation with ${user?.email || 'user'}\n\nKey Discussion Points:\n${userMessages.substring(0, 500)}${userMessages.length > 500 ? '...' : ''}`;
+    
+    return formData;
   };
 
-  const handleSaveAsPdf = async () => {
-    if (!user) {
+  /** ---------- PDF generation + upload ---------- */
+
+  const handleProceedToSignature = () => {
+    const draftMsg = findBestAssistantDraft(messages);
+    if (!draftMsg) {
       toast({
         variant: 'destructive',
-        title: 'Login required',
-        description: 'Please log in to save documents to your dashboard.'
+        title: 'No AI draft found',
+        description: 'Use the "Generate Contract" button first to create the full contract.'
+      });
+      return;
+    }
+    setShowSignatureMode(true);
+  };
+
+  const handleCompleteSignature = async (saveToBackend = false) => {
+    if (sigRef.current?.isEmpty()) {
+      toast({
+        variant: 'destructive',
+        title: 'Signature required',
+        description: 'Please sign the document before proceeding.'
+      });
+      return;
+    }
+
+    if (!signatureDate) {
+      toast({
+        variant: 'destructive',
+        title: 'Date required',
+        description: 'Please enter the signature date.'
       });
       return;
     }
 
     const draftMsg = findBestAssistantDraft(messages);
-
-    if (!draftMsg) {
-      toast({
-        variant: 'destructive',
-        title: 'No AI draft found',
-        description:
-          'Use the "Generate Contract" button first so the AI outputs the full contract in one message.'
-      });
-      return;
-    }
+    if (!draftMsg) return;
 
     try {
       const fullText = draftMsg.content.trim();
-      if (!fullText) {
-        throw new Error('Empty AI draft content');
-      }
-
       const detectedType = detectDocType(fullText);
-      const derivedTitle = deriveTitleFromText(fullText);
-      const title = detectedType || derivedTitle || 'AI Legal Document';
-
-      const pdfBlob = generateAiPdfBlob(title, fullText);
-      const fileName = `${slugify(title)}.pdf`;
-
-      const payload = {
-        kind: 'ai-legal',
-        title,
-        messages
+      
+      // Map AI-detected type to form type
+      let formType = 'nda'; // default
+      if (detectedType?.toLowerCase().includes('release') || detectedType?.toLowerCase().includes('content')) {
+        formType = 'content-release';
+      } else if (detectedType?.toLowerCase().includes('consent') || detectedType?.toLowerCase().includes('sexual')) {
+        formType = 'general-consent';
+      }
+      
+      const formData = parseConversationToFormData(messages);
+      const signatures = {
+        participant: {
+          signature: sigRef.current.toDataURL()
+        },
+        date: signatureDate
       };
 
-      const formData = new FormData();
-      formData.append('file', pdfBlob, fileName);
-      formData.append('title', title);
-      formData.append('payload', JSON.stringify(payload));
-
-      const { data } = await api.post('/contracts/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-
-      console.log('contracts/upload response:', data);
-
       toast({
-        title: 'Document Saved',
-        description: `Your "${title}" has been saved to your dashboard.`
+        title: 'Generating PDF...',
+        description: 'Creating your professional legal document.'
       });
+
+      const pdfBlob = await generatePdf(formType, formData, signatures, null, true);
+      
+      if (saveToBackend) {
+        // Save to dashboard
+        if (!user) {
+          toast({
+            variant: 'destructive',
+            title: 'Login required',
+            description: 'Please log in to save documents to your dashboard.'
+          });
+          return;
+        }
+
+        const title = detectedType || deriveTitleFromText(fullText) || 'AI Legal Document';
+        const fileName = `${slugify(title)}.pdf`;
+
+        const payload = {
+          kind: 'ai-legal',
+          title,
+          formType,
+          messages,
+          formData,
+          signatures
+        };
+
+        const uploadFormData = new FormData();
+        uploadFormData.append('file', pdfBlob, fileName);
+        uploadFormData.append('title', title);
+        uploadFormData.append('payload', JSON.stringify(payload));
+
+        await api.post('/contracts/upload', uploadFormData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+
+        toast({
+          title: 'Document Saved!',
+          description: `Your "${title}" has been saved to your dashboard.`
+        });
+        
+        setShowSignatureMode(false);
+      } else {
+        // Just download
+        const title = detectedType || deriveTitleFromText(fullText) || 'AI Legal Document';
+        const url = URL.createObjectURL(pdfBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${slugify(title)}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+
+        toast({
+          title: 'PDF Downloaded!',
+          description: 'Your contract has been downloaded in professional format.'
+        });
+        
+        setShowSignatureMode(false);
+      }
     } catch (err) {
-      console.error('Save as PDF error:', err);
+      console.error('PDF generation error:', err);
       toast({
         variant: 'destructive',
-        title: 'Error saving document',
-        description: err.message || 'There was a problem saving your document.'
+        title: 'Error',
+        description: err.message || 'There was a problem generating your document.'
       });
     }
   };
 
-  const handleDownloadPdfOnly = async () => {
-    const draftMsg = findBestAssistantDraft(messages);
+  // If in signature mode, show signature UI instead of chat
+  if (showSignatureMode) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="max-w-2xl mx-auto"
+      >
+        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+          <div className="mb-6">
+            <Button
+              variant="ghost"
+              onClick={() => setShowSignatureMode(false)}
+              className="flex items-center gap-2 mb-4"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Chat
+            </Button>
+            <h2 className="text-2xl font-bold text-gray-800">Sign Your Contract</h2>
+            <p className="text-gray-600 mt-2">
+              Your AI-generated contract is ready. Please review and sign below.
+            </p>
+          </div>
 
-    if (!draftMsg) {
-      toast({
-        variant: 'destructive',
-        title: 'No AI draft found',
-        description:
-          'Use the "Generate Contract" button first so the AI outputs the full contract in one message.'
-      });
-      return;
-    }
+          <div className="space-y-6">
+            <div>
+              <Label className="text-lg font-medium text-gray-700 mb-4 block">
+                Digital Signature
+              </Label>
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-2 sm:p-4 bg-gray-50">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-gray-600 flex items-center">
+                    <PenTool className="w-4 h-4 mr-2" />
+                    Sign with your mouse or touchscreen
+                  </span>
+                </div>
+                <SignatureCanvas
+                  signatureRef={sigRef}
+                  onBegin={() => setHasSignature(true)}
+                  onEnd={() => setHasSignature(!sigRef.current?.isEmpty())}
+                />
+              </div>
+            </div>
 
-    const fullText = draftMsg.content.trim();
-    const detectedType = detectDocType(fullText);
-    const derivedTitle = deriveTitleFromText(fullText);
-    const title = detectedType || derivedTitle || 'AI Legal Document';
+            <div className="space-y-2">
+              <Label htmlFor="signatureDate" className="text-lg font-medium text-gray-700">
+                Signature Date
+              </Label>
+              <Input
+                id="signatureDate"
+                type="date"
+                value={signatureDate}
+                onChange={(e) => setSignatureDate(e.target.value)}
+                className="h-12"
+              />
+            </div>
 
-    const pdfBlob = generateAiPdfBlob(title, fullText);
-    const url = URL.createObjectURL(pdfBlob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${slugify(title)}.pdf`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  };
+            <div className="p-4 bg-yellow-50 rounded-lg">
+              <p className="text-sm text-yellow-800">
+                By signing this document, you acknowledge that you have read, understood, and agree to the terms and conditions outlined in this contract.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 mt-8 pt-6 border-t">
+            <Button
+              onClick={() => handleCompleteSignature(false)}
+              disabled={!hasSignature}
+              className="flex-1 h-12 bg-blue-600 hover:bg-blue-700 flex items-center justify-center gap-2"
+            >
+              <Download className="w-5 h-5" />
+              Download PDF
+            </Button>
+            
+            {user && (
+              <Button
+                onClick={() => handleCompleteSignature(true)}
+                disabled={!hasSignature}
+                className="flex-1 h-12 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 flex items-center justify-center gap-2"
+              >
+                <Save className="w-5 h-5" />
+                Save to Dashboard
+              </Button>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
@@ -843,23 +1062,13 @@ function CreateWithAI() {
           </Button>
           <Button
             type="button"
-            variant="outline"
-            size="sm"
-            onClick={handleDownloadPdfOnly}
-            className="flex items-center gap-1"
-          >
-            <Download className="w-4 h-4" />
-            Download PDF
-          </Button>
-          <Button
-            type="button"
             variant="default"
             size="sm"
-            onClick={handleSaveAsPdf}
-            className="flex items-center gap-1"
+            onClick={handleProceedToSignature}
+            className="flex items-center gap-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
           >
-            <Save className="w-4 h-4" />
-            Save to Dashboard
+            <PenTool className="w-4 h-4" />
+            Sign & Download
           </Button>
         </div>
       </div>
