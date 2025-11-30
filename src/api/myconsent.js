@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8800/api",
-  // baseURL: "https://backend.myconsent.me/api",
+  // baseURL: "http://localhost:8800/api",
+  baseURL: "https://backend.myconsent.me/api",
   withCredentials: false, // we use Bearer tokens, no cookies needed
 });
 
