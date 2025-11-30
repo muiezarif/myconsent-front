@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/use-toast';
-import { User, Shield, LogOut, Star, Mail, KeyRound, Coins } from 'lucide-react';
+import { User, Shield, LogOut, Coins } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -35,9 +35,7 @@ function AccountSettings() {
   // Credits state
   const [credits, setCredits] = useState(null);
   const [isLoadingCredits, setIsLoadingCredits] = useState(false);
-  const [isBuying, setIsBuying] = useState(false);
-
-  // --- Handlers ---
+  const [buyingPack, setBuyingPack] = useState(null); // 'small' | 'medium' | 'large' | null
 
   const handleLogout = () => {
     logout();
@@ -45,13 +43,6 @@ function AccountSettings() {
     toast({
       title: 'Logged Out',
       description: 'You have been successfully logged out.',
-    });
-  };
-
-  const handleManageMembership = () => {
-    toast({
-      title: '🚧 Coming Soon!',
-      description: 'Membership management features are on the way! 🚀',
     });
   };
 
@@ -135,12 +126,12 @@ function AccountSettings() {
     };
   }, [user]);
 
-  // --- Credits: buy via Stripe Checkout ---
+  // --- Credits: buy via Stripe Checkout for a selected pack ---
 
-  const handleBuyCredits = async () => {
+  const handleBuyCredits = async (packKey) => {
     try {
-      setIsBuying(true);
-      const { data } = await api.post('/credits/checkout-session');
+      setBuyingPack(packKey);
+      const { data } = await api.post('/credits/checkout-session', { pack: packKey });
 
       if (data?.url) {
         // Redirect to Stripe Checkout
@@ -163,12 +154,9 @@ function AccountSettings() {
           err.response?.data?.error ||
           'There was a problem connecting to the payment system.',
       });
-    } finally {
-      setIsBuying(false);
+      setBuyingPack(null);
     }
   };
-
-  // --- Render ---
 
   return (
     <motion.div
@@ -242,67 +230,119 @@ function AccountSettings() {
           </div>
         </div>
 
-        {/* Membership (still simple / static) */}
-        {/* <div className="p-5 border rounded-lg">
-          <h3 className="font-semibold text-lg mb-4 flex items-center">
-            <Star className="w-5 h-5 mr-3 text-yellow-500" /> Membership
-          </h3>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <p className="font-medium">Current Plan: Free Tier</p>
-              <p className="text-sm text-gray-500">
-                Enjoy basic features, including saving documents and customizing templates.
-              </p>
-            </div>
-            <Button onClick={handleManageMembership}>
-              Manage Membership
-            </Button>
-          </div>
-        </div> */}
-
         {/* Credits & AI usage */}
         <div className="p-5 border rounded-lg">
           <h3 className="font-semibold text-lg mb-4 flex items-center">
             <Coins className="w-5 h-5 mr-3 text-purple-600" /> Credits &amp; AI Usage
           </h3>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <p className="text-gray-500 mb-1">Available AI Credits</p>
-              <p className="font-semibold text-xl">
-                {isLoadingCredits
-                  ? 'Loading...'
-                  : credits !== null
-                  ? `${credits} credit${credits === 1 ? '' : 's'}`
-                  : '—'}
-              </p>
-              <p className="text-sm text-gray-500 mt-1">
-                Credits are used whenever you interact with the AI assistant (chat or voice).
-              </p>
-              <p className="text-xs text-gray-400 mt-1">
-                Each purchase gives you a fixed pack of credits configured in your account.
-              </p>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <p className="text-gray-500 mb-1">Available AI Credits</p>
+                <p className="font-semibold text-xl">
+                  {isLoadingCredits
+                    ? 'Loading...'
+                    : credits !== null
+                    ? `${credits} credit${credits === 1 ? '' : 's'}`
+                    : '—'}
+                </p>
+                <p className="text-sm text-gray-500 mt-1">
+                  Credits are used whenever you interact with the AI assistant (chat or voice).
+                </p>
+                <p className="text-xs text-gray-400 mt-1 max-w-md">
+                  Choose a pack below to top up your balance. Payments are processed securely by
+                  Stripe.
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col gap-2 items-stretch sm:items-end">
-              <Button
-                onClick={handleBuyCredits}
-                disabled={isBuying}
-                className="flex items-center gap-2"
-              >
-                {isBuying ? (
-                  <>
-                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    Processing...
-                  </>
-                ) : (
-                  <>
-                    <Coins className="w-4 h-4" />
-                    Buy Credits
-                  </>
-                )}
-              </Button>
-              <p className="text-xs text-gray-500 max-w-xs text-right">
-                You’ll be redirected to a secure Stripe checkout page to complete your purchase.
-              </p>
+
+            {/* Packs */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Small pack */}
+              <div className="border rounded-lg p-4 flex flex-col justify-between">
+                <div>
+                  <p className="text-sm font-semibold mb-1">Starter Pack</p>
+                  <p className="text-2xl font-bold flex items-baseline gap-1">
+                    $5 <span className="text-xs text-gray-500">/ one-time</span>
+                  </p>
+                  <p className="text-sm text-gray-600 mt-1">5 credits</p>
+                </div>
+                <Button
+                  onClick={() => handleBuyCredits('small')}
+                  disabled={buyingPack === 'small'}
+                  className="mt-4 w-full flex items-center justify-center gap-2"
+                  variant="outline"
+                >
+                  {buyingPack === 'small' ? (
+                    <>
+                      <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <Coins className="w-4 h-4" />
+                      Buy 5 credits
+                    </>
+                  )}
+                </Button>
+              </div>
+
+              {/* Medium pack */}
+              <div className="border rounded-lg p-4 flex flex-col justify-between">
+                <div>
+                  <p className="text-sm font-semibold mb-1">Standard Pack</p>
+                  <p className="text-2xl font-bold flex items-baseline gap-1">
+                    $9.99 <span className="text-xs text-gray-500">/ one-time</span>
+                  </p>
+                  <p className="text-sm text-gray-600 mt-1">10 credits</p>
+                </div>
+                <Button
+                  onClick={() => handleBuyCredits('medium')}
+                  disabled={buyingPack === 'medium'}
+                  className="mt-4 w-full flex items-center justify-center gap-2"
+                >
+                  {buyingPack === 'medium' ? (
+                    <>
+                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <Coins className="w-4 h-4" />
+                      Buy 10 credits
+                    </>
+                  )}
+                </Button>
+              </div>
+
+              {/* Large pack */}
+              <div className="border rounded-lg p-4 flex flex-col justify-between">
+                <div>
+                  <p className="text-sm font-semibold mb-1">Pro Pack</p>
+                  <p className="text-2xl font-bold flex items-baseline gap-1">
+                    $18.99 <span className="text-xs text-gray-500">/ one-time</span>
+                  </p>
+                  <p className="text-sm text-gray-600 mt-1">20 credits</p>
+                </div>
+                <Button
+                  onClick={() => handleBuyCredits('large')}
+                  disabled={buyingPack === 'large'}
+                  className="mt-4 w-full flex items-center justify-center gap-2"
+                  variant="outline"
+                >
+                  {buyingPack === 'large' ? (
+                    <>
+                      <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <Coins className="w-4 h-4" />
+                      Buy 20 credits
+                    </>
+                  )}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -314,7 +354,7 @@ function AccountSettings() {
           </h3>
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              {/* <p className="text-gray-600">Change your account password.</p> */}
+              {/* Password change UI intentionally hidden for now */}
               <Dialog open={isPasswordModalOpen} onOpenChange={setIsPasswordModalOpen}>
                 <DialogTrigger asChild>
                   {/* <Button variant="outline">
