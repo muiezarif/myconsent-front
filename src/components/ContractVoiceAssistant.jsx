@@ -390,12 +390,12 @@ export default function ContractVoiceAssistant({
       )}
 
       {/* Error toast */}
-      {error && (
+      {/* {error && (
         <div className="fixed bottom-24 right-6 z-40 max-w-xs bg-red-600 text-white text-xs px-3 py-2 rounded-lg shadow-lg cursor-pointer">
           <p className="font-semibold mb-1">AI error</p>
           <p>{error}</p>
         </div>
-      )}
+      )} */}
     </>
   );
 }
